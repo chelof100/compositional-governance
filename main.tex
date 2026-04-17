@@ -284,23 +284,26 @@ feedback signal.
 
 \subsection{Paper~3: Fair Atomic Governance~\cite{fairgov26}}
 
-Paper~3 studies the fairness of access to the governance boundary. Three
+Paper~3 studies the fairness of access to the governance boundary. Four
 allocation mechanisms are analyzed:
 \begin{itemize}[noitemsep]
-  \item \textbf{M1} (Per-agent quota): fixed token budget per agent.
-  \item \textbf{M2} (First-come-first-served): admission in arrival order.
-  \item \textbf{M3} (Proportional lottery): randomized allocation by share.
+  \item \textbf{M1} (Per-Agent Token Bucket): fixed token budget per agent.
+  \item \textbf{M2} (Round-Robin Fair Queuing): admission in round-robin order across agents.
+  \item \textbf{M3} (Actor-Aware Rate Limiting): per-actor rate control preventing Sybil amplification.
+  \item \textbf{M4} (Weighted Fair Queuing): admission weighted by actor share $1/m_j$.
 \end{itemize}
 Key impossibility results include:
 \begin{itemize}[noitemsep]
   \item \textbf{Sybil Amplification} (Thm~5.1): under any identity-oblivious
-    mechanism, an adversary controlling $k$ identities can amplify resource
+    mechanism (M1, M2), an adversary controlling $k$ identities can amplify resource
     consumption by a factor proportional to $k$.
   \item \textbf{Strategy-Proofness Impossibility} (Thm~5.4): no mechanism
     simultaneously achieves efficiency, fairness at the actor level, and
-    Sybil robustness under population heterogeneity.
-  \item \textbf{BAR-Monitor Interference}: under M3, Sybil attacks depress
-    the BAR signal, masking enforcement degradation from the IML monitor.
+    Sybil robustness under population heterogeneity; achieving both requires
+    actor-aware state aggregation (M3/M4).
+  \item \textbf{BAR-Monitor Interference}: under identity-oblivious mechanisms
+    (M1/M2), Sybil attacks depress the BAR signal, masking enforcement
+    degradation from the IML monitor.
 \end{itemize}
 The agent population is denoted $\Agents$ (macro \verb|\Agents| = $\mathcal{A}$),
 with allocation vectors $\alpha \in \Delta(\Agents)$ denoting probability
@@ -318,7 +321,7 @@ Table~\ref{tab:notation} collects the notation unified across the four papers.
 \toprule
 \textbf{Symbol} & \textbf{Meaning} & \textbf{Source} \\
 \midrule
-$\Dec = \{\allow,\escalate,\deny\}$ & Decision domain & Papers~0--4 \\
+$\Dec = \{\allow,\escalate,\deny\}$ & Decision domain$^{\dagger}$ & Papers~0--4 \\
 $\join$ & Join: severity order $\allow \prec \escalate \prec \deny$ & Papers~0--4 \\
 $F: S \times \mathit{Act} \to \Dec \times \hat{S}$ & Atomic decision function & Paper~0 \\
 $g: \Sigma^* \to \{0,1\}$ & Enforcement projection & Paper~2 \\
@@ -331,6 +334,12 @@ $\otimes_\kappa$ & Synchronous composition & Paper~4 \\
 $\xrightarrow{\kappa}$ & Asynchronous coupling & Paper~4 \\
 \bottomrule
 \end{tabular}
+\smallskip
+
+\noindent\small $^{\dagger}$\,Papers~0 and~3 write $\textsc{Refuse}$ for the
+non-admissible outcome; this paper writes $\deny$ as a synonym, following
+ACP's \texttt{DENIED} response (Paper~1).  The decision domain
+$\Dec = \{\allow,\escalate,\deny\}$ is the same object across all papers.
 \end{table}
 
 % ===========================================================================
