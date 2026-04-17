@@ -1,0 +1,39 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+
+# Compiled PDFs (keep main.pdf, exclude drafts)
+*-draft.pdf
+*v[0-9]*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+.venv/
+
+# Results (generated, not tracked)
+experiments/results/*.csv
+experiments/results/*.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# All PDFs (source only repo)
+*.pdf
+
+# Compiled binaries
+*.exe
