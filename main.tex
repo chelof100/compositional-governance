@@ -679,6 +679,11 @@ not assumed in any of Papers~0--3. It formalizes the requirement that the
 enforcement layer responds proportionally to detected deviation: large
 responses to large $\Dhat_t$ and small responses when $\Dhat_t$ is already
 near zero. This is the key \emph{stability condition} of the feedback loop.
+FC2 is a property of the \emph{composed} system's response function
+$\pi_\theta \circ \Dhat$, not of any individual layer; it is absent from
+Papers~0--3 precisely because no single layer closes a feedback loop between
+drift estimate and policy parameters---that loop is an emergent property of
+the $\Layer{2} \xrightarrow{\kappa} \Layer{1}$ coupling.
 \end{assumption}
 
 \begin{assumption}[FC3 --- Consistent estimation]
@@ -815,8 +820,10 @@ An architecture is subject to \emph{finite observability} if:
     Theorem: $\Azero \notin \sigma(g)$).
   \item \emph{Exact actor-level fairness under population heterogeneity}:
     the allocation mechanism achieves per-agent fairness across a
-    heterogeneous population $\Agents$ (Paper~3 \cite{fairgov26},
-    mechanisms M1/M2/M3).
+    heterogeneous population $\Agents$ via actor-aware scheduling
+    (Paper~3 \cite{fairgov26}, Mechanisms M3/M4; identity-oblivious
+    mechanisms M1/M2 cannot achieve actor-level proportionality under
+    population heterogeneity by Theorem~5.4 of \cite{fairgov26}).
   \item \emph{Sybil robustness}: adversarial identity fragmentation cannot
     amplify resource access; no single actor can gain by splitting into
     multiple identities (Paper~3 \cite{fairgov26}, Thm~5.1).
@@ -955,6 +962,23 @@ observability. This separation is not an artifact of specific mechanisms, but
 a consequence of the information-theoretic constraints induced by finite-state
 observation.
 \end{proof}
+
+\begin{remark}[What counts as a layer collapse]
+\label{rem:collapse}
+The proof above considers \emph{removal} of a layer.  A reviewer might ask:
+can two layers be \emph{merged} into one, preserving all four guarantees?
+The answer is no under FO2--FO3.  Merging $\Layer{i}$ and $\Layer{j}$ into a
+single layer $\Layer{ij}$ would require $\Layer{ij}$ to maintain the full
+state spaces $\State{i} \times \State{j}$ internally.  Under FO2, each layer
+communicates to the next only via a bounded summary $\Sum{i}: \State{i} \to
+\Lambda_i$; a merged layer that exposes $\State{i} \times \State{j}$ to its
+successor violates the locality condition FO3.  Equivalently, any merge
+either (a) creates a layer whose internal state space exceeds the finite-state
+budget (violating FO1), or (b) collapses the summary function in a way that
+loses the information needed to guarantee the properties of the absorbed
+layer.  Hence merging is equivalent to relaxing finite observability, and the
+irreducibility claim holds against merges as well as removals.
+\end{remark}
 
 \begin{corollary}
 \label{cor:necessity}
