@@ -12,7 +12,7 @@
 **Irreducible Multi-Scale Governance: Composition and Limits of Atomic Admission Systems**  
 Marcelo Fernandez (TraslaIA), 2026
 
-DOI: [10.5281/zenodo.19643950](https://doi.org/10.5281/zenodo.19643950) &nbsp;·&nbsp; arXiv: [TBD]
+DOI: [10.5281/zenodo.19672608](https://doi.org/10.5281/zenodo.19672608) &nbsp;·&nbsp; arXiv: under review
 
 ---
 
@@ -35,7 +35,7 @@ The paper introduces:
 **Paper 1 (ACP):** https://github.com/chelof100/acp-framework-en  
 **Paper 2 (IML):** https://github.com/chelof100/iml-benchmark  
 **Paper 3 (Fairness):** https://github.com/chelof100/fair-atomic-governance  
-**arXiv (ACP):** https://arxiv.org/abs/2603.18829
+**Paper 5 (RAM):** https://github.com/chelof100/reconstructive-authority-model
 
 ---
 
@@ -43,7 +43,7 @@ The paper introduces:
 
 ```
 compositional-governance/
-├── main.tex                          # Full LaTeX source (20 pages)
+├── main.tex                          # Full LaTeX source (23 pages)
 ├── references.bib                    # Bibliography
 ├── main.pdf                          # Compiled paper
 ├── experiments/
@@ -121,10 +121,13 @@ python analysis/plots.py
 
 ---
 
-## The four-layer architecture
+## The governance architecture
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
+│  RAM — Runtime Validity       [Paper 5, reconstructive-auth-model]│  When to execute?
+│  Coverage envelope, reconstruction gate, privilege-narrowing     │
+├──────────────────────────────────────────────────────────────────┤
 │  L3 — Fairness Allocation     [Paper 3, fair-atomic-governance]  │  Who gets to act?
 │  Population-level: actor shares, Sybil resistance                │
 ├──────────────────────────────────────────────────────────────────┤
@@ -139,7 +142,7 @@ python analysis/plots.py
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-The four layers correspond to four orthogonal projections of the governance space:
+The four core layers correspond to four orthogonal projections of the governance space:
 **temporal** (atomicity) · **state** (enforcement history) · **behavioral** (drift monitoring) · **population** (fair allocation).
 
 Irreducibility (Theorem 3): no single mechanism can cover two projections simultaneously under finite observability.
@@ -150,11 +153,12 @@ Irreducibility (Theorem 3): no single mechanism can cover two projections simult
 
 | Paper | Title | Repo | Status |
 |---|---|---|---|
-| **Paper 0** | Atomic Decision Boundaries | [decision-boundary-model](https://github.com/chelof100/decision-boundary-model) | [Published — Zenodo](https://doi.org/10.5281/zenodo.19642166) · arXiv: TBD |
-| **Paper 1** | Agent Control Protocol (ACP) | [acp-framework-en](https://github.com/chelof100/acp-framework-en) | [Published — arXiv:2603.18829](https://arxiv.org/abs/2603.18829) · [Zenodo](https://doi.org/10.5281/zenodo.19642405) |
-| **Paper 2** | From Admission to Invariants (IML) | [iml-benchmark](https://github.com/chelof100/iml-benchmark) | [Published — Zenodo](https://doi.org/10.5281/zenodo.19643761) · arXiv: TBD |
-| **Paper 3** | Fair Atomic Governance | [fair-atomic-governance](https://github.com/chelof100/fair-atomic-governance) | [Published — Zenodo](https://doi.org/10.5281/zenodo.19643928) · arXiv: TBD |
-| **Paper 4** | Irreducible Multi-Scale Governance (this repo) | [compositional-governance](https://github.com/chelof100/compositional-governance) | [Published — Zenodo](https://doi.org/10.5281/zenodo.19643950) · arXiv: TBD |
+| **Paper 0** | Atomic Decision Boundaries | [decision-boundary-model](https://github.com/chelof100/decision-boundary-model) | [Zenodo](https://doi.org/10.5281/zenodo.19670649) · [arXiv:2604.17511](https://arxiv.org/abs/2604.17511) |
+| **Paper 1** | Agent Control Protocol (ACP) | [acp-framework-en](https://github.com/chelof100/acp-framework-en) | [Zenodo](https://doi.org/10.5281/zenodo.19672575) · [arXiv:2603.18829](https://arxiv.org/abs/2603.18829) |
+| **Paper 2** | From Admission to Invariants (IML) | [iml-benchmark](https://github.com/chelof100/iml-benchmark) | [Zenodo](https://doi.org/10.5281/zenodo.19672589) · [arXiv:2604.17517](https://arxiv.org/abs/2604.17517) |
+| **Paper 3** | Fair Atomic Governance | [fair-atomic-governance](https://github.com/chelof100/fair-atomic-governance) | [Zenodo](https://doi.org/10.5281/zenodo.19672597) · arXiv: under review |
+| **Paper 4** | Irreducible Multi-Scale Governance (this repo) | [compositional-governance](https://github.com/chelof100/compositional-governance) | [Zenodo](https://doi.org/10.5281/zenodo.19672608) · arXiv: under review |
+| **Paper 5** | Reconstructive Authority Model (RAM) | [reconstructive-authority-model](https://github.com/chelof100/reconstructive-authority-model) | [Zenodo](https://doi.org/10.5281/zenodo.19669430) · arXiv: under review |
 
 **Series logic:**
 - Paper 0 proves *when* admissibility can be guaranteed (structural necessity).
@@ -162,6 +166,7 @@ Irreducibility (Theorem 3): no single mechanism can cover two projections simult
 - Paper 2 detects behavioral drift invisible to enforcement (IML, above the boundary).
 - Paper 3 proves correct enforcement does not imply fair allocation (allocation layer).
 - Paper 4 composes all four layers and proves their joint necessity (this paper).
+- Paper 5 provides the operational closure: given partial observability, determines when execution is valid at runtime (RAM).
 
 ---
 
@@ -169,12 +174,13 @@ Irreducibility (Theorem 3): no single mechanism can cover two projections simult
 
 ```bibtex
 @misc{fernandez2026comp,
-  title   = {Irreducible Multi-Scale Governance: Composition and Limits
-             of Atomic Admission Systems},
-  author  = {Fernandez, Marcelo},
-  year    = {2026},
-  doi     = {10.5281/zenodo.19643950},
-  note    = {Zenodo: https://doi.org/10.5281/zenodo.19643950. arXiv: TBD. Paper~4 of the Agent Governance Series.}
+  title        = {Irreducible Multi-Scale Governance: Composition and Limits
+                 of Atomic Admission Systems},
+  author       = {Fernandez, Marcelo},
+  year         = {2026},
+  doi          = {10.5281/zenodo.19672608},
+  howpublished = {\url{https://doi.org/10.5281/zenodo.19672608}},
+  note         = {Paper~4 of the Agent Governance Series. Zenodo. arXiv: under review.}
 }
 ```
 
